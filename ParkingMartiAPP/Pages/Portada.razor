@@ -1,0 +1,18 @@
+﻿@page "/"
+@layout Shared.LoginLayout
+@inject NavigationManager navigationManager
+<h3>Portada</h3>
+
+<button name="login" type="button" @onclick='mandaALogin' >LOGIN </button>
+<button name="login" type="button" @onclick='mandaAHome'>LOGIN </button>
+@code 
+{
+    private void mandaALogin()
+    {
+        navigationManager.NavigateTo("Home");
+    }
+    private void mandaAHome()
+    {
+        navigationManager.NavigateTo("Home");
+    }
+}
