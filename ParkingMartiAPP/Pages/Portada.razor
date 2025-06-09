@@ -1,12 +1,23 @@
 ﻿@page "/"
 @layout Shared.LoginLayout
 @inject NavigationManager navigationManager
-<h3>Portada</h3>
+<h1 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">@titulo</h1>
 
-<button name="login" type="button" @onclick='mandaALogin' >LOGIN </button>
-<button name="login" type="button" @onclick='mandaAHome'>LOGIN </button>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+    <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaALogin()) Text="Login" ButtonStyle="ButtonStyle.Primary" />
+    <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaAHome()) Text="Información" ButtonStyle="ButtonStyle.Success" />
+</RadzenStack>
+<br />
+
+<RadzenStack AlignItems="AlignItems.Center" Class="rz-mx-auto rz-my-12">
+    <RadzenImage Path="Images/parkingMarti.jpeg" Style="width:90%;">
+
+    </RadzenImage>
+</RadzenStack>
+
 @code 
 {
+    string titulo = "Bienvenid@ a PARKING MARTI!";
     private void mandaALogin()
     {
         navigationManager.NavigateTo("Home");
