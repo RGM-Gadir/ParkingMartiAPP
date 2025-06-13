@@ -9,14 +9,26 @@
 </RadzenStack>
 <br />
 
-<RadzenStack AlignItems="AlignItems.Center" Class="rz-mx-auto rz-my-12">
+<div class="default-image"
+     @onmouseout="@OnMouseOut"
+     @onmouseover="@OnMouseOver">
+    <div class="@_HoverImageCSSClass">
+        @*this will be used for the transformed image*@
+    </div>
+</div>
+
+
+
+@* <RadzenStack AlignItems="AlignItems.Center" class="ImagePortada">
     <RadzenImage Path="Images/parkingMarti.jpeg" Style="width:90%;">
 
     </RadzenImage>
-</RadzenStack>
+</RadzenStack> *@
 
 @code 
 {
+    bool _IsHovering = false;
+    string _HoverImageCSSClass = "";
     string titulo = "Bienvenid@ a PARKING MARTI!";
     private void mandaALogin()
     {
@@ -26,4 +38,21 @@
     {
         navigationManager.NavigateTo("Home");
     }
+    protected void OnMouseOver(MouseEventArgs mouseEvent)
+    {
+        if (!_IsHovering)
+        {
+            _IsHovering = true;
+            _HoverImageCSSClass = "hovering";
+            StateHasChanged();
+        }
+    }
+    protected void OnMouseOut(MouseEventArgs mouseEvent)
+    {
+        _HoverImageCSSClass = "";
+        _IsHovering = false;
+        StateHasChanged();
+    }
+
+
 }

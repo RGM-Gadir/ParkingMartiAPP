@@ -1,0 +1,30 @@
+﻿.default-image {
+    display: block;
+    width: 800px;
+    height: 800px;
+    background-image: url('/Images/parkingMarti.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-content:center;
+}
+
+.hovering {
+    display: block;
+    width: 500px;
+    height: 500px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('/Images/parkingMarti.jpeg');
+    transform: scale(2.0);
+}
+
+    .hovering:hover {
+        transition-delay: 1s;
+        transition-duration: 0s;
+        background-image: url('/Images/parkingMarti.jpeg');
+    }
+
+body
+{
+}
