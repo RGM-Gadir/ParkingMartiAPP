@@ -5,18 +5,20 @@
 
 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
     <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaALogin()) Text="Login" ButtonStyle="ButtonStyle.Primary" />
-    <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaAHome()) Text="Información" ButtonStyle="ButtonStyle.Success" />
+    <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaAInfor()) Text="Información" ButtonStyle="ButtonStyle.Success" />
 </RadzenStack>
 <br />
 
-<div class="default-image"
+<img src="Images/parkingMarti.jpeg" IsResponsive="true" Alt="My Image" />
+
+@* <div class="default-image"
      @onmouseout="@OnMouseOut"
      @onmouseover="@OnMouseOver">
     <div class="@_HoverImageCSSClass">
-        @*this will be used for the transformed image*@
+        @*this will be used for the transformed image
     </div>
 </div>
-
+ *@
 
 
 @* <RadzenStack AlignItems="AlignItems.Center" class="ImagePortada">
@@ -30,14 +32,17 @@
     bool _IsHovering = false;
     string _HoverImageCSSClass = "";
     string titulo = "Bienvenid@ a PARKING MARTI!";
+
     private void mandaALogin()
     {
-        navigationManager.NavigateTo("Home");
+        navigationManager.NavigateTo("Login");
     }
-    private void mandaAHome()
+
+    private void mandaAInfor()
     {
-        navigationManager.NavigateTo("Home");
+        navigationManager.NavigateTo("Informacion");
     }
+
     protected void OnMouseOver(MouseEventArgs mouseEvent)
     {
         if (!_IsHovering)
@@ -47,6 +52,7 @@
             StateHasChanged();
         }
     }
+
     protected void OnMouseOut(MouseEventArgs mouseEvent)
     {
         _HoverImageCSSClass = "";
