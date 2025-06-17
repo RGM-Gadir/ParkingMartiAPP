@@ -1,4 +1,5 @@
 ﻿@page "/Login"
+@using static ParkingMartiAPP.Pages.Login
 @layout Shared.LoginLayout
 @inject NavigationManager navigationManager
 
@@ -8,6 +9,43 @@
     <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaAPortada()) Text="Volver" ButtonStyle="ButtonStyle.Primary" />
 </RadzenStack>
 
+<RadzenStack Gap="1rem" AlignItems="AlignItems.Center">
+    <RadzenTemplateForm Style="" Data="@registro" Submit="@((Registro args) => { HaceLogin(args); })">
+        <RadzenRow Gap="2rem" class="rz-p-0 rz-p-lg-4">
+            <RadzenStack Gap="1rem">
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Usuario" Component="CardNr" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenTextBox Style="width: 100%;" Name="CardNr" @bind-Value="registro.usuario" />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Contraseña" Component="CardNr" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenTextBox Style="width: 100%;" Name="CardNr" @bind-Value="registro.password" />
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenRow>
+        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" class="rz-mt-8 rz-mb-4">
+            <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Medium" Icon="save" Text="ENTRAR" />
+            @* <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large" Icon="cancel" Text="Cancel" Click="@Cancel" *@
+        </RadzenStack>
+    </RadzenTemplateForm>
+</RadzenStack>
+
+
+
+
+
+<label>
+    @Error
+</label>
+
 
 
 
@@ -15,8 +53,33 @@
 
 @code 
 {
+    private string usuario;
+    private string passw;
+    private string Error;
+    private Registro registro = new Registro();
+    public class Registro
+    {
+        public string usuario { get; set; }
+        public string password { get; set; }
+    }
+
     private void mandaAPortada()
     {
         navigationManager.NavigateTo("/");
     }
+
+    private void HaceLogin(Registro reg)
+    {
+        // navigationManager.NavigateTo("/");
+        if (reg.usuario=="RGM" && reg.password=="RGM")
+        {
+            navigationManager.NavigateTo("/Home");
+        }
+        else
+        {
+            Error = "El usuario no existe";
+
+        }
+    }
+
 }
