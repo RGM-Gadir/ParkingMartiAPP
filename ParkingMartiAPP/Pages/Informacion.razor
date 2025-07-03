@@ -2,22 +2,28 @@
 @layout Shared.LoginLayout
 @inject NavigationManager navigationManager
 
-<h2 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Acerca de nosotros</h2>
+    <h2 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Acerca de nosotros</h2>
 
-<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
-    <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaAPortada()) Text="Volver" ButtonStyle="ButtonStyle.Primary" />
-</RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+        <RadzenButton Variant="Variant.Outlined" Click=@(args => mandaAPortada()) Text="Volver" ButtonStyle="ButtonStyle.Primary" />
+    </RadzenStack>
 
 
-<br />
-    <label style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-left:30%" >
-        Somos un parking de camiones y autocaravanas situado en la carretera X, 
+    <br />
+    <label style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-left:30%">
+        Somos un parking de camiones y autocaravanas situado en la carretera X,
     </label>
     <br />
-<label style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-left:30%">
+    <label style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-left:30%">
         con sistema de vigilancia con cámaras y un trabajador las 24 horas del día
     </label>
-   
+
+
+
+
+
+
+
 
 @code 
 {
