@@ -1,9 +1,16 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 using ParkingMartiAPP.Data;
 using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configurar a sql local db
+builder.Services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();

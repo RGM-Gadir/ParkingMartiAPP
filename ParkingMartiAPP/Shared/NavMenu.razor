@@ -78,6 +78,15 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
+            <NavLink class="nav-link" href="MisTrabajadores" style="color:black">
+                <span class="oi oi-people" aria-hidden="true"></span>
+                @if (!@IconMenuActive)
+                {
+                    <label style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:black">Mis Trabajadores</label>
+                }
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="MiVeriFactu" style="color:black">
                 <span class="oi oi-dashboard" aria-hidden="true"></span>
                 @if (!@IconMenuActive)
