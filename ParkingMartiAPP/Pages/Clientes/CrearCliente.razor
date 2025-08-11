@@ -1,0 +1,119 @@
+﻿@page "/MisClientes/Crear"
+
+@using Clases
+@using Repositorio
+@inject IRepositorio Repositorio
+
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Crear cliente</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+       <EditForm Model="nuevoCliente" OnInvalidSubmit="@( () => ManejadorCrearLibro())">
+           <DataAnnotationsValidator/>
+           <div class="container"    style="padding:30px">
+               <div class="form-group">
+                   <div class="row">
+                       <div class="col-sm-2">
+                           <label>Nombre y apellidos</label>
+                       </div>
+                       <div class="col-sm-6">
+                           <InputText @bind-Value="nuevoCliente.NombreYApellidos" class="form-control"> </InputText>
+                           <ValidationMessage For="() => nuevoCliente.NombreYApellidos"></ValidationMessage>
+                       </div>
+                   </div>
+               </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Correo</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="nuevoCliente.Correo" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoCliente.Correo"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Población</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="nuevoCliente.Poblacion" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoCliente.Poblacion"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Cuenta Bancaria</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="nuevoCliente.CuentaBancaria" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoCliente.CuentaBancaria"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Teléfono</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="nuevoCliente.Telefono1" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoCliente.Telefono1"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Teléfono 2</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="nuevoCliente.Telefono2" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoCliente.Telefono2"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>NIF/CIF</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="nuevoCliente.NIF" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoCliente.NIF"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Dirección</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="nuevoCliente.Direccion" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoCliente.Direccion"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+
+
+           </div>
+
+       </EditForm>
+    </div>
+</div>
+
+@code 
+{
+    private Clientes nuevoCliente = new Clientes();
+}

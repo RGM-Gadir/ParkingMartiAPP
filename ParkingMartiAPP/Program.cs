@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using ParkingMartiAPP.Data;
+using ParkingMartiAPP.Repositorio;
 using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddRadzenComponents();
+builder.Services.AddScoped<IRepositorio, Repositorio>();
 
 var app = builder.Build();
 

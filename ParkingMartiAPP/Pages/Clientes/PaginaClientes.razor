@@ -1,9 +1,61 @@
 ﻿@page "/MisClientes"
+@using Clases
+@using Repositorio
+@inject IRepositorio Repositorio
+
+@* <h2 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Mis Clientes</h2> *@
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Lista de clientes</h2>
+            </div>
+            <div class="col-sm-3">
+                <a href="MisClientes/Crear" class="btn btn-primary">Crear nuevo cliente</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>ID Cliente</th>
+                <th>Nombre y apellidos</th>
+                <th>Correo</th>
+                <th>NIF</th>
+                <th>Teléfono</th>
+            </tr>
+            @foreach (var item in listaClientes)
+            {
+                <tr>
+                    <td>@item.idCliente</td>
+                    <td>@item.NombreYApellidos</td>
+                    <td>@item.Correo</td>
+                    <td>@item.NIF</td>
+                    <td>@item.Telefono1</td>
+                    <td>
+                        <a href="Clientes/Editar/@item.idCliente" class="btn btn-success btn-sm">Editar</a>
+                        <a href="Clientes/FichaCliente/@item.idCliente" class="btn btn-secondary btn-sm">Ficha</a>
+                        <button @onclick="@( () =>BorrarCliente(item.idCliente))" class="btn btn-danger btn-sm">Borrar</button>
+                    </td>
+                </tr>    
+            }
+        </table>
+    </div>
+</div>
 
 
-<h2 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Mis Clientes</h2>
 
 @code 
 {
-
+    private List<Clientes> listaClientes = new List<Clientes>();
+    protected override async Task OnInitializedAsync()
+    {
+        listaClientes = await Repositorio.GetClientes();     
+    }
+    public void BorrarCliente(int clienteID)
+    {
+        
+    }
 }

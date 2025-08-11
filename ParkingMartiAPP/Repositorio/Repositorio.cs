@@ -11,7 +11,7 @@ namespace ParkingMartiAPP.Repositorio
         {
             _contexto = contexto;
         }
-        public Task<Trabajadores> ActualizarCamion(int camionID, Camiones camion)
+        public Task<Camiones> ActualizarCamion(int camionID, Camiones camion)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +52,7 @@ namespace ParkingMartiAPP.Repositorio
             throw new NotImplementedException();
         }
 
-        public Task<Trabajadores> CrearCamion(Camiones camion)
+        public Task<Camiones> CrearCamion(Camiones camion)
         {
             throw new NotImplementedException();
         }
@@ -91,7 +91,7 @@ namespace ParkingMartiAPP.Repositorio
             throw new NotImplementedException();
         }
 
-        public Task<Proveedores> EliminarCamion(int camionID)
+        public Task EliminarCamion(int camionID)
         {
             throw new NotImplementedException();
         }
@@ -103,17 +103,17 @@ namespace ParkingMartiAPP.Repositorio
             await _contexto.SaveChangesAsync();
         }
 
-        public Task<Proformas> EliminarProforma(int proformaID)
+        public Task EliminarProforma(int proformaID)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Proveedores> EliminarProveedor(int proveedorID)
+        public Task EliminarProveedor(int proveedorID)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Proveedores> EliminarTrabajador(int trabajadorID)
+        public Task EliminarTrabajador(int trabajadorID)
         {
             throw new NotImplementedException();
         }
@@ -123,7 +123,7 @@ namespace ParkingMartiAPP.Repositorio
             throw new NotImplementedException();
         }
 
-        public Task<Trabajadores> GetCamionID(int camionID)
+        public Task<Camiones> GetCamionID(int camionID)
         {
             throw new NotImplementedException();
         }

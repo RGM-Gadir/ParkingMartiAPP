@@ -27,9 +27,9 @@ namespace ParkingMartiAPP.Repositorio
 
         // Camiones
         public Task<List<Camiones>> GetCamiones();
-        public Task<Trabajadores> GetCamionID(int camionID);
-        public Task<Trabajadores> CrearCamion(Camiones camion);
-        public Task<Trabajadores> ActualizarCamion(int camionID, Camiones camion);
+        public Task<Camiones> GetCamionID(int camionID);
+        public Task<Camiones> CrearCamion(Camiones camion);
+        public Task<Camiones> ActualizarCamion(int camionID, Camiones camion);
         public Task EliminarCamion(int camionID);
 
         // Proformas
