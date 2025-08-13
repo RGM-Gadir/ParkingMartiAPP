@@ -116,11 +116,8 @@
                 <br />
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-success">Crear Cliente</button>
-                        </div>
-                        <div class="col-sm-6">
-                            <button class="btn btn-danger" @onclick="@(() => NavigationManager.NavigateTo("/MisClientes"))">Volver</button>
+                        <div class="col-sm-8">
+                            <button type="submit" style="align-items:center" class="btn btn-success">Crear Cliente</button>
                         </div>
                     </div>
                 </div>
@@ -139,4 +136,10 @@
         var crearCliente = await Repositorio.CrearCliente(nuevoCliente);
         NavigationManager.NavigateTo("/MisClientes");
     }
+    private async Task VuelvoAlClientes()
+    {
+        NavigationManager.NavigateTo("/MisClientes");
+    }
+
+
 }

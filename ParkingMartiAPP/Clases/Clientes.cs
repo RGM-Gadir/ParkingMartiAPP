@@ -6,6 +6,7 @@ namespace ParkingMartiAPP.Clases
     {
         [Key]
         public int idCliente { get; set; }
+        [Required]
         public string NombreYApellidos { get; set; }
         public string? Direccion { get; set; }
         public string? Poblacion { get; set; }

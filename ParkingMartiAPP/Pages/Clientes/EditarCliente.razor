@@ -1,0 +1,180 @@
+﻿@page "/MisClientes/Editar/{idCliente:int}"
+
+@using Clases
+@using Repositorio
+@inject IRepositorio Repositorio
+@inject NavigationManager NavigationManager
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Editar cliente @clienteBD.NombreYApellidos</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                <div class="col-sm-2">
+                    <label>Vehículos</label>
+                </div>
+                <div class="col-sm-2">
+                    <label>@CuantosCamionesTiene.ToString()</label>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-info" @onclick="LlevameACamiones">Ver Vehículos</button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-info" @onclick="LlevameACamiones">Añadir Vehículo</button>
+                </div>
+            </div>
+        </div>
+
+        <EditForm Model="clienteBD" OnValidSubmit="@(() => ManejadorEditarCliente())">
+            <DataAnnotationsValidator />
+            <div class="container" style="padding:30px">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Nombre y apellidos</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText  @bind-Value="clienteBD.NombreYApellidos" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.NombreYApellidos"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Correo</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="clienteBD.Correo" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.Correo"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Población</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="clienteBD.Poblacion" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.Poblacion"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Cuenta Bancaria</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="clienteBD.CuentaBancaria" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.CuentaBancaria"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Teléfono</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="clienteBD.Telefono1" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.Telefono1"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Teléfono 2</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="clienteBD.Telefono2" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.Telefono2"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>NIF/CIF</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="clienteBD.NIF" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.NIF"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>Dirección</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <InputText @bind-Value="clienteBD.Direccion" class="form-control"> </InputText>
+                            <ValidationMessage For="() => clienteBD.Direccion"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <button type="submit" style="align-items:center" class="btn btn-success">Guardar Cliente</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </EditForm>
+    </div>
+</div>
+
+
+
+
+@code 
+{
+    private int CuantosCamionesTiene;
+    private string NombreCliente;
+    private Clientes clienteBD = new Clientes();
+    private List<Camiones> listaCamiones = new List<Camiones>();
+    [Parameter]
+    public int? idCliente { get; set; }
+    private async Task ManejadorEditarCliente()
+    {
+        var editarCliente = await Repositorio.ActualizarCliente(idCliente.Value, clienteBD);
+        NavigationManager.NavigateTo("MisClientes");
+    }
+    private async Task LlevameACamiones()
+    {
+        NavigationManager.NavigateTo($"MisCamionesDelCliente/{idCliente}");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        clienteBD = await Repositorio.GetClienteID(idCliente.Value);
+        listaCamiones = await Repositorio.GetCamiones();
+        foreach (var item in listaCamiones)
+        {
+            if (item.ClienteID==idCliente)
+            {
+                CuantosCamionesTiene = CuantosCamionesTiene +1;
+            }
+        }
+    }
+
+}

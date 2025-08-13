@@ -120,6 +120,11 @@ namespace ParkingMartiAPP.Repositorio
 
         public Task<List<Camiones>> GetCamiones()
         {
+            return _contexto.Camiones.ToListAsync();
+        }
+
+        public Task<Camiones> GetCamionesDelCliente(int clienteID)
+        {
             throw new NotImplementedException();
         }
 

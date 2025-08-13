@@ -4,7 +4,9 @@
 @inject IRepositorio Repositorio
 
 @* <h2 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Mis Clientes</h2> *@
+<QuickGrid>
 
+</QuickGrid>
 <div class="card">
     <div class="card-header bg-dark">
         <div class="row">
@@ -12,7 +14,7 @@
                 <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Lista de clientes</h2>
             </div>
             <div class="col-sm-3">
-                <a href="MisClientes/Crear" class="btn btn-primary">Crear nuevo cliente</a>
+                <a href="MisClientes/Crear" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="btn btn-primary">Crear nuevo cliente</a>
             </div>
 
         </div>
@@ -35,8 +37,8 @@
                     <td>@item.NIF</td>
                     <td>@item.Telefono1</td>
                     <td>
-                        <a href="Clientes/Editar/@item.idCliente" class="btn btn-success btn-sm">Editar</a>
-                        <a href="Clientes/FichaCliente/@item.idCliente" class="btn btn-secondary btn-sm">Ficha</a>
+                        <a href="MisClientes/Editar/@item.idCliente" class="btn btn-success btn-sm">Editar</a>
+                        <a href="MisClientes/FichaCliente/@item.idCliente" class="btn btn-secondary btn-sm">Ficha</a>
                         <button @onclick="@( () =>BorrarCliente(item.idCliente))" class="btn btn-danger btn-sm">Borrar</button>
                     </td>
                 </tr>    
