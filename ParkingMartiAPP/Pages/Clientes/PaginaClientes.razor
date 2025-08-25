@@ -4,9 +4,7 @@
 @inject IRepositorio Repositorio
 
 @* <h2 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Mis Clientes</h2> *@
-<QuickGrid>
 
-</QuickGrid>
 <div class="card">
     <div class="card-header bg-dark">
         <div class="row">
@@ -20,7 +18,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-striped border">
+        @* <table class="table table-striped border">
             <tr class="table-secondary">
                 <th>ID Cliente</th>
                 <th>Nombre y apellidos</th>
@@ -43,7 +41,34 @@
                     </td>
                 </tr>    
             }
-        </table>
+        </table> *@
+        @if (listaClientes==null)
+        {
+            <label>Cargando...</label>
+        }
+        else
+        {
+            <RadzenDataGrid TItem="Clientes" Data=@listaClientesGrid AllowFiltering="true" @bind-Value=@clienteSeleccionado FilterPopupRenderMode="PopupRenderMode.OnDemand" AllowPaging="true" PageSize="10" AllowSorting="true"
+            ContainsText="Contiene" EqualsText="Igual a" ApplyFilterText="Aplicar" ClearFilterText="Limpiar"
+            DoesNotContainText="No contiene" EndsWithText="Termina en" GreaterThanText="Mayor que" LessThanText="Menor que" NotEqualsText=" Distinto a"
+            LessThanOrEqualsText=" Menor o igual a" GreaterThanOrEqualsText=" Mayor o igual a" IsNullText="es nulo" IsNotNullText="No es nulo"
+            AndOperatorText="Y" OrOperatorText="O" StartsWithText="Empieza con" IsEmptyText="Es vacío" IsNotEmptyText="No es vacío">
+                <Columns>
+                    <RadzenDataGridColumn TItem="Clientes" TextAlign="TextAlign.Left" Title="ID Cliente" Property="idCliente">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Clientes" TextAlign="TextAlign.Left" Title="Nombre" Property="NombreYApellidos">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Clientes" TextAlign="TextAlign.Center" Title="Correo" Property="Correo">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Clientes" TextAlign="TextAlign.Center" Title="NIF" Property="NIF">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Clientes" TextAlign="TextAlign.Center" Title="Teléfono" Property="Telefono1">
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+
+        }
+
     </div>
 </div>
 
@@ -52,9 +77,13 @@
 @code 
 {
     private List<Clientes> listaClientes = new List<Clientes>();
+    private Clientes[]? listaClientesGrid;
+    private IList<Clientes> clienteSeleccionado;
     protected override async Task OnInitializedAsync()
     {
-        listaClientes = await Repositorio.GetClientes();     
+        listaClientes = await Repositorio.GetClientes();
+        listaClientesGrid = listaClientes.ToArray();
+        clienteSeleccionado = listaClientes.Take(1).ToList();
     }
     public void BorrarCliente(int clienteID)
     {
