@@ -2,6 +2,7 @@
 @using Clases
 @using Repositorio
 @inject IRepositorio Repositorio
+@inject NavigationManager NavManager
 
 @* <h2 style="text-align:center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Mis Clientes</h2> *@
 
@@ -48,6 +49,14 @@
         }
         else
         {
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+               
+                <RadzenButton Variant="Variant.Outlined" Click=@(args => EditCLiente(clienteSeleccionado.First().idCliente)) Text="Editar Cliente" ButtonStyle="ButtonStyle.Info" />
+                @* <RadzenButton Variant="Variant.Outlined" Click=@(args => FichaCLiente(clienteSeleccionado.First().idCliente)) Text="Ficha Cliente" ButtonStyle="ButtonStyle.Warning" /> *@
+                @* <RadzenButton Variant="Variant.Outlined" Text="Listado" Click=@(args => ObtengoListadoClientes()) ButtonStyle="ButtonStyle.Success" /> *@
+                <RadzenButton Variant="Variant.Outlined" Click=@(args => DeleteCLiente(clienteSeleccionado.First().idCliente)) Text="Eliminar Cliente" ButtonStyle="ButtonStyle.Secondary" />
+            </RadzenStack>
+            <br />
             <RadzenDataGrid TItem="Clientes" Data=@listaClientesGrid AllowFiltering="true" @bind-Value=@clienteSeleccionado FilterPopupRenderMode="PopupRenderMode.OnDemand" AllowPaging="true" PageSize="10" AllowSorting="true"
             ContainsText="Contiene" EqualsText="Igual a" ApplyFilterText="Aplicar" ClearFilterText="Limpiar"
             DoesNotContainText="No contiene" EndsWithText="Termina en" GreaterThanText="Mayor que" LessThanText="Menor que" NotEqualsText=" Distinto a"
@@ -85,8 +94,17 @@
         listaClientesGrid = listaClientes.ToArray();
         clienteSeleccionado = listaClientes.Take(1).ToList();
     }
-    public void BorrarCliente(int clienteID)
+    private void EditCLiente(int id)
     {
-        
+        NavManager.NavigateTo($"/MisClientes/Editar/{id}");
+
+
     }
+    private async Task DeleteCLiente(int id)
+    {
+        await Repositorio.EliminarCliente(id);
+        NavManager.NavigateTo(NavManager.Uri, true);
+
+    }
+
 }
