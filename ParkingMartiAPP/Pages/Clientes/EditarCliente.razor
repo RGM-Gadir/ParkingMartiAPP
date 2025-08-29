@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="container">
+        @* <div class="container">
             <div class="row" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
                 <div class="col-sm-2">
                     <label>Vehículos</label>
@@ -29,7 +29,13 @@
                     <button class="btn btn-info" @onclick="LlevameACamiones">Añadir Vehículo</button>
                 </div>
             </div>
-        </div>
+        </div> *@
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+            <label style="margin-left:2%">Vehículos:</label>
+            <label>@CuantosCamionesTiene.ToString()</label>
+            <RadzenButton Variant="Variant.Outlined"  Text="Ver Vehículos" ButtonStyle="ButtonStyle.Info" />
+            <RadzenButton Variant="Variant.Outlined"  Text="Añadir Vehículo" ButtonStyle="ButtonStyle.Warning" />          
+        </RadzenStack>
 
         <EditForm Model="clienteBD" OnValidSubmit="@(() => ManejadorEditarCliente())">
             <DataAnnotationsValidator />

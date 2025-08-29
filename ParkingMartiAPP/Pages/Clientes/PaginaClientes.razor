@@ -52,7 +52,7 @@
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
                
                 <RadzenButton Variant="Variant.Outlined" Click=@(args => EditCLiente(clienteSeleccionado.First().idCliente)) Text="Editar Cliente" ButtonStyle="ButtonStyle.Info" />
-                @* <RadzenButton Variant="Variant.Outlined" Click=@(args => FichaCLiente(clienteSeleccionado.First().idCliente)) Text="Ficha Cliente" ButtonStyle="ButtonStyle.Warning" /> *@
+                <RadzenButton Variant="Variant.Outlined" Click=@(args => FichaCLiente(clienteSeleccionado.First().idCliente)) Text="Ficha Cliente" ButtonStyle="ButtonStyle.Warning" />
                 @* <RadzenButton Variant="Variant.Outlined" Text="Listado" Click=@(args => ObtengoListadoClientes()) ButtonStyle="ButtonStyle.Success" /> *@
                 <RadzenButton Variant="Variant.Outlined" Click=@(args => DeleteCLiente(clienteSeleccionado.First().idCliente)) Text="Eliminar Cliente" ButtonStyle="ButtonStyle.Secondary" />
             </RadzenStack>
@@ -97,14 +97,15 @@
     private void EditCLiente(int id)
     {
         NavManager.NavigateTo($"/MisClientes/Editar/{id}");
-
-
+    }
+    private void FichaCLiente(int id)
+    {
+        NavManager.NavigateTo($"/MisClientes/Editar/{id}");
     }
     private async Task DeleteCLiente(int id)
     {
         await Repositorio.EliminarCliente(id);
         NavManager.NavigateTo(NavManager.Uri, true);
-
     }
 
 }

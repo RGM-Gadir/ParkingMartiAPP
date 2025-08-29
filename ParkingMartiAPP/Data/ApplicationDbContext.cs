@@ -20,6 +20,7 @@ namespace ParkingMartiAPP.Data
         public DbSet<Proformas> Proformas { get; set; }
         public DbSet<Proveedores> Proveedores { get; set; }
         public DbSet<Trabajadores> Trabajadores { get; set; }
+        public DbSet<Vehiculos> Vehiculos { get; set; }
 
     }
 }
