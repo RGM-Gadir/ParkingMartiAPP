@@ -12,8 +12,8 @@ using ParkingMartiAPP.Data;
 namespace ParkingMartiAPP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250810211816_MigracionInicial")]
-    partial class MigracionInicial
+    [Migration("20250831170937_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -444,6 +444,29 @@ namespace ParkingMartiAPP.Migrations
                     b.HasKey("idTrabajador");
 
                     b.ToTable("Trabajadores");
+                });
+
+            modelBuilder.Entity("ParkingMartiAPP.Clases.Vehiculos", b =>
+                {
+                    b.Property<int>("idVehiculo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idVehiculo"));
+
+                    b.Property<int>("ClienteID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Matricula")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("tipoVehiculo")
+                        .HasColumnType("int");
+
+                    b.HasKey("idVehiculo");
+
+                    b.ToTable("Vehiculos");
                 });
 
             modelBuilder.Entity("ParkingMartiAPP.Clases.Camiones", b =>

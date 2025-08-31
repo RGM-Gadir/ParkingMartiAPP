@@ -49,6 +49,10 @@ namespace ParkingMartiAPP.Repositorio
 
         public Task<Proformas> CrearFactura(Proformas proforma,Facturas factura);
         public Task<Proformas> AnularFactura(int facturaID, Proformas proforma);
+        // Vehiculos
+        public Task<List<Vehiculos>> GetVehiculos();
+        public Task<Vehiculos> CrearVehiculo(Vehiculos vehiculo);
+
 
     }
 }

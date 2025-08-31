@@ -443,6 +443,29 @@ namespace ParkingMartiAPP.Migrations
                     b.ToTable("Trabajadores");
                 });
 
+            modelBuilder.Entity("ParkingMartiAPP.Clases.Vehiculos", b =>
+                {
+                    b.Property<int>("idVehiculo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idVehiculo"));
+
+                    b.Property<int>("ClienteID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Matricula")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("tipoVehiculo")
+                        .HasColumnType("int");
+
+                    b.HasKey("idVehiculo");
+
+                    b.ToTable("Vehiculos");
+                });
+
             modelBuilder.Entity("ParkingMartiAPP.Clases.Camiones", b =>
                 {
                     b.HasOne("ParkingMartiAPP.Clases.Clientes", null)

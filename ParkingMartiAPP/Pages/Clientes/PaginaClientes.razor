@@ -53,7 +53,7 @@
                
                 <RadzenButton Variant="Variant.Outlined" Click=@(args => EditCLiente(clienteSeleccionado.First().idCliente)) Text="Editar Cliente" ButtonStyle="ButtonStyle.Info" />
                 <RadzenButton Variant="Variant.Outlined" Click=@(args => FichaCLiente(clienteSeleccionado.First().idCliente)) Text="Ficha Cliente" ButtonStyle="ButtonStyle.Warning" />
-                @* <RadzenButton Variant="Variant.Outlined" Text="Listado" Click=@(args => ObtengoListadoClientes()) ButtonStyle="ButtonStyle.Success" /> *@
+                <RadzenButton Variant="Variant.Outlined" Text="Informes" Click=@(args => ObtengoInformes(clienteSeleccionado.First().idCliente)) ButtonStyle="ButtonStyle.Success" />
                 <RadzenButton Variant="Variant.Outlined" Click=@(args => DeleteCLiente(clienteSeleccionado.First().idCliente)) Text="Eliminar Cliente" ButtonStyle="ButtonStyle.Secondary" />
             </RadzenStack>
             <br />
@@ -100,7 +100,11 @@
     }
     private void FichaCLiente(int id)
     {
-        NavManager.NavigateTo($"/MisClientes/Editar/{id}");
+        // NavManager.NavigateTo($"/MisClientes/Editar/{id}");
+    }
+    private void ObtengoInformes(int id)
+    {
+        // NavManager.NavigateTo($"/MisClientes/Editar/{id}");
     }
     private async Task DeleteCLiente(int id)
     {

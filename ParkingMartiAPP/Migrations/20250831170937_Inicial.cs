@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,12 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ParkingMartiAPP.Migrations
 {
     /// <inheritdoc />
-    public partial class MigracionInicial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
             migrationBuilder.CreateTable(
                 name: "LineasFactura",
                 columns: table => new
@@ -55,7 +53,6 @@ namespace ParkingMartiAPP.Migrations
                     table.PrimaryKey("PK_LineasProforma", x => x.idLinea);
                 });
 
-
             migrationBuilder.CreateTable(
                 name: "Proformas",
                 columns: table => new
@@ -82,7 +79,6 @@ namespace ParkingMartiAPP.Migrations
                     Descripcion4 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descripcion5 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     QuiereMatriculas = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FechaOperacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClienteID = table.Column<int>(type: "int", nullable: true),
                     ProveedorID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -90,7 +86,6 @@ namespace ParkingMartiAPP.Migrations
                 {
                     table.PrimaryKey("PK_Proformas", x => x.idProforma);
                 });
-
 
             migrationBuilder.CreateTable(
                 name: "Trabajadores",
@@ -115,33 +110,33 @@ namespace ParkingMartiAPP.Migrations
                     table.PrimaryKey("PK_Trabajadores", x => x.idTrabajador);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Vehiculos",
+                columns: table => new
+                {
+                    idVehiculo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Matricula = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tipoVehiculo = table.Column<int>(type: "int", nullable: false),
+                    ClienteID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehiculos", x => x.idVehiculo);
+                    table.ForeignKey(
+                        name: "FK_Vehiculos_Clientes_ClientesidCliente",
+                        column: x => x.idVehiculo,
+                        principalTable: "Clientes",
+                        principalColumn: "idCliente");
+                });
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "FechaOperacion",
-                table: "Facturas",
-                type: "datetime2(7)",
-                nullable: true
-                );
-
-            migrationBuilder.AddColumn<int>(
-               name: "numeroProforma",
-               table: "Facturas",
-               type: "int",
-               nullable: true
-               );
-
-            migrationBuilder.AddColumn<int>(
-              name: "ConvertidaAVerifactu",
-              table: "Facturas",
-              type: "int",
-              nullable: true
-              );                                 
+           
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+    
             migrationBuilder.DropTable(
                 name: "LineasFactura");
 
@@ -154,7 +149,9 @@ namespace ParkingMartiAPP.Migrations
             migrationBuilder.DropTable(
                 name: "Trabajadores");
 
-           
+            migrationBuilder.DropTable(
+                name: "Vehiculos");
+
         }
     }
 }

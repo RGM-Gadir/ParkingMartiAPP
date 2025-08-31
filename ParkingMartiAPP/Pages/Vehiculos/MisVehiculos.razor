@@ -1,6 +1,100 @@
-﻿<h3>MisVehiculos</h3>
+﻿@page "/MisVehiculos"
+@using Clases
+@using Repositorio
+@inject IRepositorio Repositorio
+@inject NavigationManager NavManager
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2ehiculos style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Lista de Vehículos</h2ehiculos>
+            </div>
+            <div class="col-sm-3">
+                <a href="MisClientes/Crear" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="btn btn-primary">Crear nuevo Vehículo</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+
+        @if (listaVehiculos==null)
+        {
+            <label>Cargando...</label>
+        }
+        else
+        {
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+
+                <RadzenButton Variant="Variant.Outlined" Click=@(args => EditCLiente(vehiculoSeleccionado.First().idVehiculo)) Text="Editar Vehiculo" ButtonStyle="ButtonStyle.Info" />
+                <RadzenButton Variant="Variant.Outlined" Click=@(args => DeleteCLiente(vehiculoSeleccionado.First().idVehiculo)) Text="Eliminar Vehiculo" ButtonStyle="ButtonStyle.Secondary" />
+            </RadzenStack>
+            <br />
+            <RadzenDataGrid TItem="Vehiculos" Data=@listaVehiculosGrid AllowFiltering="true" @bind-Value=@vehiculoSeleccionado FilterPopupRenderMode="PopupRenderMode.OnDemand" AllowPaging="true" PageSize="10" AllowSorting="true"
+                            ContainsText="Contiene" EqualsText="Igual a" ApplyFilterText="Aplicar" ClearFilterText="Limpiar"
+                            DoesNotContainText="No contiene" EndsWithText="Termina en" GreaterThanText="Mayor que" LessThanText="Menor que" NotEqualsText=" Distinto a"
+                            LessThanOrEqualsText=" Menor o igual a" GreaterThanOrEqualsText=" Mayor o igual a" IsNullText="es nulo" IsNotNullText="No es nulo"
+                            AndOperatorText="Y" OrOperatorText="O" StartsWithText="Empieza con" IsEmptyText="Es vacío" IsNotEmptyText="No es vacío">
+                <Columns>
+                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Left" Title="ID Vehiculo" Property="idVehiculo">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Left" Title="Matricula" Property="Matricula">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Center" Title="Tipo Vehiculo" Property="tipoVehiculo">
+                    </RadzenDataGridColumn>
+
+                </Columns>
+            </RadzenDataGrid>
+
+        }
+
+    </div>
+</div>
+
 
 @code
 {
+    private List<Vehiculos> listaVehiculos = new List<Vehiculos>();
+    private Vehiculos[]? listaVehiculosGrid;
+    private IList<Vehiculos> vehiculoSeleccionado;
+    private List<Camiones> listaCamiones = new List<Camiones>();
+    protected override async Task OnInitializedAsync()
+    {
+        listaVehiculos = await Repositorio.GetVehiculos();
+        listaCamiones = await Repositorio.GetCamiones();
+        listaVehiculosGrid = listaVehiculos.ToArray();
+        vehiculoSeleccionado = listaVehiculos.Take(1).ToList();
+        // await pasoCamionesAVehiculos();
+    }
+    private void EditCLiente(int id)
+    {
+        NavManager.NavigateTo($"/MisClientes/Editar/{id}");
+    }
+    private void FichaCLiente(int id)
+    {
+        // NavManager.NavigateTo($"/MisClientes/Editar/{id}");
+    }
+    private void ObtengoInformes(int id)
+    {
+        // NavManager.NavigateTo($"/MisClientes/Editar/{id}");
+    }
+    private async Task DeleteCLiente(int id)
+    {
+        await Repositorio.EliminarCliente(id);
+        NavManager.NavigateTo(NavManager.Uri, true);
+    }
 
+    private async Task pasoCamionesAVehiculos()
+    {
+        foreach (var item in listaCamiones)
+        {
+            Vehiculos vehiculos = new Vehiculos();
+            // vehiculos.idVehiculo = item.idCamion;
+            vehiculos.tipoVehiculo = 0;
+            vehiculos.ClienteID = item.ClienteID;
+            vehiculos.Matricula = item.Matricula;
+            await Repositorio.CrearVehiculo(vehiculos);
+
+        }   
+    }
 }

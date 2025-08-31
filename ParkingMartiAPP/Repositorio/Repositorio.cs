@@ -70,6 +70,19 @@ namespace ParkingMartiAPP.Repositorio
                 return new Clientes();
             }
         }
+        public async Task<Vehiculos> CrearVehiculo(Vehiculos vehiculo)
+        {
+            if (vehiculo != null)
+            {
+                await _contexto.Vehiculos.AddAsync(vehiculo);
+                await _contexto.SaveChangesAsync();
+                return vehiculo;
+            }
+            else
+            {
+                return new Vehiculos();
+            }
+        }
 
         public Task<Proformas> CrearFactura(Proformas proforma, Facturas factura)
         {
