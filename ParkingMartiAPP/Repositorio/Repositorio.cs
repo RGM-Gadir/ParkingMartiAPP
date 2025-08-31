@@ -147,6 +147,10 @@ namespace ParkingMartiAPP.Repositorio
         {
             return _contexto.Clientes.ToListAsync();
         }
+        public Task<List<Vehiculos>> GetVehiculos()
+        {
+            return _contexto.Vehiculos.ToListAsync();
+        }
 
         public Task<Proformas> GetFacturaID(int facturaID)
         {
