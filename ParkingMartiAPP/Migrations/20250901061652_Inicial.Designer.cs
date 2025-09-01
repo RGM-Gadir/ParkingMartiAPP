@@ -12,7 +12,7 @@ using ParkingMartiAPP.Data;
 namespace ParkingMartiAPP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250831170937_Inicial")]
+    [Migration("20250901061652_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />

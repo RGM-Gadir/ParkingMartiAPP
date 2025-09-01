@@ -31,16 +31,16 @@
             </RadzenStack>
             <br />
             <RadzenDataGrid TItem="Vehiculos" Data=@listaVehiculosGrid AllowFiltering="true" @bind-Value=@vehiculoSeleccionado FilterPopupRenderMode="PopupRenderMode.OnDemand" AllowPaging="true" PageSize="10" AllowSorting="true"
-                            ContainsText="Contiene" EqualsText="Igual a" ApplyFilterText="Aplicar" ClearFilterText="Limpiar"
-                            DoesNotContainText="No contiene" EndsWithText="Termina en" GreaterThanText="Mayor que" LessThanText="Menor que" NotEqualsText=" Distinto a"
-                            LessThanOrEqualsText=" Menor o igual a" GreaterThanOrEqualsText=" Mayor o igual a" IsNullText="es nulo" IsNotNullText="No es nulo"
-                            AndOperatorText="Y" OrOperatorText="O" StartsWithText="Empieza con" IsEmptyText="Es vacío" IsNotEmptyText="No es vacío">
+            ContainsText="Contiene" EqualsText="Igual a" ApplyFilterText="Aplicar" ClearFilterText="Limpiar"
+            DoesNotContainText="No contiene" EndsWithText="Termina en" GreaterThanText="Mayor que" LessThanText="Menor que" NotEqualsText=" Distinto a"
+            LessThanOrEqualsText=" Menor o igual a" GreaterThanOrEqualsText=" Mayor o igual a" IsNullText="es nulo" IsNotNullText="No es nulo"
+            AndOperatorText="Y" OrOperatorText="O" StartsWithText="Empieza con" IsEmptyText="Es vacío" IsNotEmptyText="No es vacío">
                 <Columns>
                     <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Left" Title="ID Vehiculo" Property="idVehiculo">
                     </RadzenDataGridColumn>
                     <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Left" Title="Matricula" Property="Matricula">
                     </RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Center" Title="Tipo Vehiculo" Property="tipoVehiculo" >
+                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Center" Title="Tipo Vehiculo" Property="@nameof(Vehiculos.tipoVehiculo)">
                     </RadzenDataGridColumn>
 
                 </Columns>
@@ -54,10 +54,19 @@
 
 @code
 {
+    
     private List<Vehiculos> listaVehiculos = new List<Vehiculos>();
     private Vehiculos[]? listaVehiculosGrid;
     private IList<Vehiculos> vehiculoSeleccionado;
     private List<Camiones> listaCamiones = new List<Camiones>();
+
+    private String ObtienePropiedad()
+    {
+
+        string resultado="";
+        return resultado;
+    }
+
     protected override async Task OnInitializedAsync()
     {
         listaVehiculos = await Repositorio.GetVehiculos();
@@ -82,6 +91,17 @@
     {
         await Repositorio.EliminarCliente(id);
         NavManager.NavigateTo(NavManager.Uri, true);
+    }
+    private string PasoAString(int num)
+    {
+        String resultado = "";
+        if (num == 0)
+        {
+            resultado = "Camión";
+        }
+        else if (num==1) { resultado = "Autocaravana"; }
+        else if (num==2) { resultado="Turismo"; }
+        return resultado;
     }
 
     private async Task pasoCamionesAVehiculos()
