@@ -115,10 +115,18 @@ namespace ParkingMartiAPP.Repositorio
             _contexto.Remove(clienteDB);
             await _contexto.SaveChangesAsync();
         }
-
-        public Task EliminarProforma(int proformaID)
+        public async Task EliminarVehiculo(int clienteID)
         {
-            throw new NotImplementedException();
+            var vehiculoDB = await _contexto.Vehiculos.FindAsync(clienteID);
+            _contexto.Remove(vehiculoDB);
+            await _contexto.SaveChangesAsync();
+        }
+
+        public async Task EliminarProforma(int proformaID)
+        {
+            var vehiculoDB = await _contexto.Proformas.FindAsync(proformaID);
+            _contexto.Remove(vehiculoDB);
+            await _contexto.SaveChangesAsync();
         }
 
         public Task EliminarProveedor(int proveedorID)

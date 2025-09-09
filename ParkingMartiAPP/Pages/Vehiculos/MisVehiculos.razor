@@ -11,7 +11,7 @@
                 <h2ehiculos style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Lista de Vehículos</h2ehiculos>
             </div>
             <div class="col-sm-3">
-                <a href="MisClientes/Crear" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="btn btn-primary">Crear nuevo Vehículo</a>
+                <a href="MisVehiculos/Crear" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="btn btn-primary">Crear nuevo Vehículo</a>
             </div>
 
         </div>
@@ -24,27 +24,28 @@
         }
         else
         {
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
-
-                <RadzenButton Variant="Variant.Outlined" Click=@(args => EditCLiente(vehiculoSeleccionado.First().idVehiculo)) Text="Editar Vehiculo" ButtonStyle="ButtonStyle.Info" />
-                <RadzenButton Variant="Variant.Outlined" Click=@(args => DeleteCLiente(vehiculoSeleccionado.First().idVehiculo)) Text="Eliminar Vehiculo" ButtonStyle="ButtonStyle.Secondary" />
-            </RadzenStack>
-            <br />
-            <RadzenDataGrid TItem="Vehiculos" Data=@listaVehiculosGrid AllowFiltering="true" @bind-Value=@vehiculoSeleccionado FilterPopupRenderMode="PopupRenderMode.OnDemand" AllowPaging="true" PageSize="10" AllowSorting="true"
-            ContainsText="Contiene" EqualsText="Igual a" ApplyFilterText="Aplicar" ClearFilterText="Limpiar"
-            DoesNotContainText="No contiene" EndsWithText="Termina en" GreaterThanText="Mayor que" LessThanText="Menor que" NotEqualsText=" Distinto a"
-            LessThanOrEqualsText=" Menor o igual a" GreaterThanOrEqualsText=" Mayor o igual a" IsNullText="es nulo" IsNotNullText="No es nulo"
-            AndOperatorText="Y" OrOperatorText="O" StartsWithText="Empieza con" IsEmptyText="Es vacío" IsNotEmptyText="No es vacío">
-                <Columns>
-                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Left" Title="ID Vehiculo" Property="idVehiculo">
-                    </RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Left" Title="Matricula" Property="Matricula">
-                    </RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="Vehiculos" TextAlign="TextAlign.Center" Title="Tipo Vehiculo" Property="@nameof(Vehiculos.tipoVehiculo)">
-                    </RadzenDataGridColumn>
-
-                </Columns>
-            </RadzenDataGrid>
+             <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>ID Vehículo</th>
+                <th>Matrícula</th>
+                <th>Tipo de Vehículo</th>
+                <th>Nombre cliente</th>
+            </tr>
+            @foreach (var item in listaVehiculos)
+            {
+                <tr>
+                    <td>@item.idVehiculo</td>
+                    <td>@item.Matricula</td>
+                    <td>@ObtienePropiedad(@item.tipoVehiculo)</td>
+                    <td>@ObtieneNombreCliente(@item.ClienteID)</td>
+                    <td>
+                        <a href="MisClientes/Editar/@item.idVehiculo" class="btn btn-success btn-sm">Editar</a>
+                            <a href="MisClientes/FichaCliente/@item.idVehiculo" class="btn btn-secondary btn-sm">Ficha</a>
+                            <button @onclick="@(() => DeleteVehiculo(item.idVehiculo))" class="btn btn-danger btn-sm">Borrar</button>
+                    </td>
+                </tr>    
+            }
+        </table> 
 
         }
 
@@ -54,42 +55,48 @@
 
 @code
 {
-    
+
     private List<Vehiculos> listaVehiculos = new List<Vehiculos>();
     private Vehiculos[]? listaVehiculosGrid;
     private IList<Vehiculos> vehiculoSeleccionado;
     private List<Camiones> listaCamiones = new List<Camiones>();
 
-    private String ObtienePropiedad()
+    private String ObtienePropiedad(int id)
     {
-
         string resultado="";
+        if (id==0)
+        {
+            resultado = "Camión";
+        } 
+        else if(id==1)
+        {
+            resultado = "Autocaravana";
+        }
         return resultado;
+    }
+
+
+    public async Task<string> ObtieneNombreCliente(int id)
+    {
+        Clientes cliente = await Repositorio.GetClienteID(id);
+        String resultado = cliente.NombreYApellidos;
+        return Task.FromResult<resultado>;
     }
 
     protected override async Task OnInitializedAsync()
     {
         listaVehiculos = await Repositorio.GetVehiculos();
         listaCamiones = await Repositorio.GetCamiones();
-        listaVehiculosGrid = listaVehiculos.ToArray();
-        vehiculoSeleccionado = listaVehiculos.Take(1).ToList();
         // await pasoCamionesAVehiculos();
     }
-    private void EditCLiente(int id)
+    private void EditVehiculo(int id)
     {
-        NavManager.NavigateTo($"/MisClientes/Editar/{id}");
+        NavManager.NavigateTo($"/MisVehiculos/Editar/{id}");
     }
-    private void FichaCLiente(int id)
+
+    private async Task DeleteVehiculo(int id)
     {
-        // NavManager.NavigateTo($"/MisClientes/Editar/{id}");
-    }
-    private void ObtengoInformes(int id)
-    {
-        // NavManager.NavigateTo($"/MisClientes/Editar/{id}");
-    }
-    private async Task DeleteCLiente(int id)
-    {
-        await Repositorio.EliminarCliente(id);
+        await Repositorio.EliminarVehiculo(id);
         NavManager.NavigateTo(NavManager.Uri, true);
     }
     private string PasoAString(int num)

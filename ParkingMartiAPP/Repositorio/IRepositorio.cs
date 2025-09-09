@@ -53,6 +53,6 @@ namespace ParkingMartiAPP.Repositorio
         public Task<List<Vehiculos>> GetVehiculos();
         public Task<Vehiculos> CrearVehiculo(Vehiculos vehiculo);
 
-
+        public Task EliminarVehiculo(int pvehiculoID);
     }
 }
