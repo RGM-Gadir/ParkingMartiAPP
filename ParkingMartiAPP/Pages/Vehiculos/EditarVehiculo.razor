@@ -1,0 +1,45 @@
+﻿@page "/MisVehiculos/Editar/{idVehiculo:int}"
+
+@using Clases
+@using Repositorio
+@inject IRepositorio Repositorio
+@inject NavigationManager NavigationManager
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Editar vehiculo @idVehiculo</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <EditForm Model="vehiculoBD" OnValidSubmit="@(() => ManejadorEditarVehiculo())">
+
+        </EditForm>
+
+
+    </div>
+
+
+
+
+
+
+</div>
+
+@code 
+{
+    [Parameter]
+    public int? idVehiculo { get; set; }
+    private Vehiculos vehiculoBD = new Vehiculos();
+    protected override async Task OnInitializedAsync()
+    {
+        vehiculoBD = await Repositorio.GetVehiculoID(idVehiculo.Value);
+    }
+    private async Task ManejadorEditarVehiculo()
+    {
+        var editarCliente = await Repositorio.ActualizarVehiculo(idCliente.Value, clienteBD);
+        NavigationManager.NavigateTo("MisClientes");
+    }
+}

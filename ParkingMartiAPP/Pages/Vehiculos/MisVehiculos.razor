@@ -24,28 +24,27 @@
         }
         else
         {
-             <table class="table table-striped border">
-            <tr class="table-secondary">
-                <th>ID Vehículo</th>
-                <th>Matrícula</th>
-                <th>Tipo de Vehículo</th>
-                <th>Nombre cliente</th>
-            </tr>
-            @foreach (var item in listaVehiculos)
-            {
-                <tr>
-                    <td>@item.idVehiculo</td>
-                    <td>@item.Matricula</td>
-                    <td>@ObtienePropiedad(@item.tipoVehiculo)</td>
-                    <td>@ObtieneNombreCliente(@item.ClienteID)</td>
-                    <td>
-                        <a href="MisClientes/Editar/@item.idVehiculo" class="btn btn-success btn-sm">Editar</a>
-                            <a href="MisClientes/FichaCliente/@item.idVehiculo" class="btn btn-secondary btn-sm">Ficha</a>
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>ID Vehículo</th>
+                    <th>Matrícula</th>
+                    <th>Tipo de Vehículo</th>
+                    <th>Nombre cliente</th>
+                </tr>
+                @foreach (var item in listaVehiculos)
+                {
+                    <tr>
+                        <td>@item.idVehiculo</td>
+                        <td>@item.Matricula</td>
+                        <td>@ObtienePropiedad(@item.tipoVehiculo)</td>
+                        <td>@ObtieneNombreCliente(@item.ClienteID)</td>
+                        <td>
+                            <a href="MisVehiculos/Editar/@item.idVehiculo" class="btn btn-success btn-sm">Editar</a>
                             <button @onclick="@(() => DeleteVehiculo(item.idVehiculo))" class="btn btn-danger btn-sm">Borrar</button>
-                    </td>
-                </tr>    
-            }
-        </table> 
+                        </td>
+                    </tr>    
+                }
+            </table> 
 
         }
 
@@ -68,19 +67,17 @@
         {
             resultado = "Camión";
         } 
-        else if(id==1)
+        else if (id==1)
         {
             resultado = "Autocaravana";
         }
         return resultado;
     }
 
-
-    public async Task<string> ObtieneNombreCliente(int id)
+    public String ObtieneNombreCliente(int id)
     {
-        Clientes cliente = await Repositorio.GetClienteID(id);
-        String resultado = cliente.NombreYApellidos;
-        return Task.FromResult<resultado>;
+        Task<string> miTask = Repositorio.DevuelvemeNombreDelCLiente(id);
+        return miTask.Result;
     }
 
     protected override async Task OnInitializedAsync()

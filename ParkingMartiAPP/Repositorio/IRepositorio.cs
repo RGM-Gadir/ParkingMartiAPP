@@ -10,6 +10,7 @@ namespace ParkingMartiAPP.Repositorio
         public Task<Clientes> CrearCliente(Clientes cliente);
         public Task<Clientes> ActualizarCliente(int clienteID,Clientes cliente);
         public Task EliminarCliente(int clienteID);
+        public Task<string> DevuelvemeNombreDelCLiente(int clienteID);
 
         // Proveedores
         public Task<List<Proveedores>> GetProveedores();
@@ -54,5 +55,6 @@ namespace ParkingMartiAPP.Repositorio
         public Task<Vehiculos> CrearVehiculo(Vehiculos vehiculo);
 
         public Task EliminarVehiculo(int pvehiculoID);
+        public Task<Vehiculos> GetVehiculoID(int clienteID);
     }
 }

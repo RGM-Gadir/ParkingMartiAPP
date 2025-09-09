@@ -32,6 +32,12 @@ namespace ParkingMartiAPP.Repositorio
             return clienteBD;
         }
 
+        public async Task<String> DevuelvemeNombreDelCLiente(int clienteID) 
+        {
+            var clienteBD = await _contexto.Clientes.FindAsync(clienteID);
+            return clienteBD.NombreYApellidos.ToString();
+        }
+
         public Task<Proformas> ActualizarProforma(int proformaID, Proformas proforma)
         {
             throw new NotImplementedException();
@@ -162,6 +168,16 @@ namespace ParkingMartiAPP.Repositorio
                 return new Clientes();
             }
             return clienteDB;
+        }
+
+        public async Task<Vehiculos> GetVehiculoID(int vehiculoID)
+        {
+            var vehiculoDB = await _contexto.Vehiculos.FindAsync(vehiculoID);
+            if (vehiculoDB == null)
+            {
+                return new Vehiculos();
+            }
+            return vehiculoDB;
         }
 
         public Task<List<Clientes>> GetClientes()
