@@ -32,6 +32,16 @@ namespace ParkingMartiAPP.Repositorio
             return clienteBD;
         }
 
+        public async Task<Vehiculos> ActualizarVehiculo(int vehiculoID, Vehiculos vehiculo)
+        {
+            var vehiculoBD = await _contexto.Vehiculos.FindAsync(vehiculoID);
+            vehiculoBD.Matricula = vehiculo.Matricula;
+            vehiculoBD.ClienteID = vehiculo.ClienteID;
+            vehiculoBD.tipoVehiculo = vehiculo.tipoVehiculo;
+            await _contexto.SaveChangesAsync();
+            return vehiculoBD;
+        }
+
         public async Task<String> DevuelvemeNombreDelCLiente(int clienteID) 
         {
             var clienteBD = await _contexto.Clientes.FindAsync(clienteID);

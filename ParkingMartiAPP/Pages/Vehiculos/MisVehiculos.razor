@@ -56,21 +56,21 @@
 {
 
     private List<Vehiculos> listaVehiculos = new List<Vehiculos>();
-    private Vehiculos[]? listaVehiculosGrid;
-    private IList<Vehiculos> vehiculoSeleccionado;
     private List<Camiones> listaCamiones = new List<Camiones>();
 
     private String ObtienePropiedad(int id)
     {
+
         string resultado="";
         if (id==0)
         {
             resultado = "Camión";
-        } 
+        }
         else if (id==1)
         {
             resultado = "Autocaravana";
         }
+        else { resultado= ""; }
         return resultado;
     }
 
@@ -83,7 +83,7 @@
     protected override async Task OnInitializedAsync()
     {
         listaVehiculos = await Repositorio.GetVehiculos();
-        listaCamiones = await Repositorio.GetCamiones();
+        // listaCamiones = await Repositorio.GetCamiones();
         // await pasoCamionesAVehiculos();
     }
     private void EditVehiculo(int id)

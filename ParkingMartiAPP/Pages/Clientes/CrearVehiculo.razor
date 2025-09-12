@@ -1,20 +1,21 @@
-﻿@page "/MisVehiculos/Editar/{idVehiculo:int}"
+﻿@page "/MisVehiculos/Crear"
 
 @using Clases
 @using Repositorio
 @inject IRepositorio Repositorio
 @inject NavigationManager NavigationManager
 
+
 <div class="card">
     <div class="card-header bg-dark">
         <div class="row">
             <div class="col-sm-12">
-                <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Editar vehículo @idVehiculo</h2>
+                <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-info">Crear nuevo Vehículo</h2>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <EditForm Model="vehiculoBD" OnValidSubmit="@(() => ManejadorEditarVehiculo())">
+        <EditForm Model="nuevoVehiculo" OnValidSubmit="@(() => ManejadorCrearVehiculo())">
             <DataAnnotationsValidator />
             <div class="container" style="padding:30px">
                 <div class="form-group">
@@ -23,8 +24,8 @@
                             <label>Matrícula</label>
                         </div>
                         <div class="col-sm-6">
-                            <InputText @bind-Value="vehiculoBD.Matricula" class="form-control"> </InputText>
-                            <ValidationMessage For="() => vehiculoBD.Matricula"></ValidationMessage>
+                            <InputText @bind-Value="nuevoVehiculo.Matricula" class="form-control"> </InputText>
+                            <ValidationMessage For="() => nuevoVehiculo.Matricula"></ValidationMessage>
                         </div>
                     </div>
                     <br />
@@ -45,7 +46,7 @@
                         <div class="col-sm-6">
                             <RadzenDropDownDataGrid Data="@listaClientes" TValue="int" TextProperty="NombreYApellidos" ValueProperty="idCliente"
                                                     AllowColumnResize="true" AllowFilteringByAllStringColumns="true"
-                                                    @bind-Value="vehiculoBD.ClienteID" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowClear="true">
+                                                    @bind-Value="nuevoVehiculo.ClienteID" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowClear="true">
                                 <Columns>
                                     <RadzenDropDownDataGridColumn Property="idCliente" Title="idCliente" Width="100px" />
                                     <RadzenDropDownDataGridColumn Property="NombreYApellidos" Title="Nombre" Width="200px" />
@@ -66,49 +67,43 @@
                 </div>
             </div>
         </EditForm>
-
-
+     </div>
     </div>
 
-
-
-
-
-
-</div>
-
-@code 
+@code
 {
-    [Parameter]
-    public int? idVehiculo { get; set; }
-    private Vehiculos vehiculoBD = new Vehiculos();
-    public List<string> listaTipos =  new List<string>();
-    public string tipoSeleccionado;
-    private List<Clientes> listaClientes = new List<Clientes>();
-    protected override async Task OnInitializedAsync()
-    {
-        vehiculoBD = await Repositorio.GetVehiculoID(idVehiculo.Value);
-        listaTipos.Add("Camión");
-        listaTipos.Add("Autocaravana");
-        listaTipos.Add("Turismo");
-        listaClientes = await Repositorio.GetClientes();
+        public List<string> listaTipos = new List<string>();
+        public string tipoSeleccionado;
+        private Vehiculos nuevoVehiculo = new Vehiculos();
+        private List<Clientes> listaClientes = new List<Clientes>();
 
-    }
-    private async Task ManejadorEditarVehiculo()
-    {
-        if (tipoSeleccionado == "Camión")
+        private async Task ManejadorCrearVehiculo()
         {
-            vehiculoBD.tipoVehiculo = 0;
+            if (tipoSeleccionado == "Camión")
+            {
+                nuevoVehiculo.tipoVehiculo = 0;
+            }
+            if (tipoSeleccionado == "Autocaravana")
+            {
+                nuevoVehiculo.tipoVehiculo = 1;
+            }
+            if (tipoSeleccionado == "Turismo")
+            {
+                nuevoVehiculo.tipoVehiculo = 2;
+            }
+            var crearVehiculo = await Repositorio.CrearVehiculo(nuevoVehiculo);
+            NavigationManager.NavigateTo("/MisVehiculos");
         }
-        if (tipoSeleccionado == "Autocaravana")
+        private async Task VuelvoAlClientes()
         {
-            vehiculoBD.tipoVehiculo = 1;
+            NavigationManager.NavigateTo("/MisVehiculos");
         }
-        if (tipoSeleccionado == "Turismo")
+        protected override async Task OnInitializedAsync()
         {
-            vehiculoBD.tipoVehiculo = 2;
+            listaTipos.Add("Camión");
+            listaTipos.Add("Autocaravana");
+            listaTipos.Add("Turismo");
+            listaClientes = await Repositorio.GetClientes();
+
         }
-        var editarCliente = await Repositorio.ActualizarVehiculo(idVehiculo.Value, vehiculoBD);
-        NavigationManager.NavigateTo("MisVehiculos");
-    }
 }
